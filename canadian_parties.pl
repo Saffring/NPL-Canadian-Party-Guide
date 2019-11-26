@@ -62,16 +62,29 @@ adj([right | L],L,Entity, [right(Entity)|C],C).
 noun([party | L],L,Entity, [party(Entity)|C],C).
 noun([leader | L], L, Entity, [leader(Entity) |C], C).
 noun([policy | L], L, Entity, [policy(Entity) |C], C).
+noun([reason |L], L, Entity, [reason(Entity)|C], C).
 
-% Parties are proper nouns.
+
 % We could either have it check a language dictionary or add the constraints. We chose to check the dictionary.
 proper_noun([X | L],L,X,C,C) :- party(X).
+proper_noun([the, X | L],L,X,C,C) :- party(X).
 proper_noun([X | L],L,X,C,C) :- policy(X).
+proper_noun([X | L],L,X,C,C) :- reason(X).
+
+
 
 reln([the,leader,of| L],L,O1,O2,[leaderOf(O2,O1)|C],C).
 reln([supports | L],L,O1,O2,[supports(O2,O1)|C],C).
 reln([is,supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
 reln([supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
+
+reln([to,support| L],L,O1,O2,[because(O2,O1)|C],C).
+
+
+
+
+
+
 
 % question(Question,QR,Entity) is true if Query provides an answer about Entity to Question
 question(['Does' | L0],L2,Entity,C0,C2) :-
@@ -155,7 +168,7 @@ policy('wealth tax').
 policy('bike lanes').
 policy('foreign military intervention').
 policy('unions').
-policy(abortion).
+policy('abortion').
 policy('repealing the law of gravity').
 policy('quebec nationalism').
 
@@ -188,6 +201,12 @@ supports('abortion',bq).
 supports('quebec nationalism',bq).
 supports('repealing the law of gravity',rhinoceros).
 
+because('abortion', 'body autonomy').
+
+
+% reason(R) is true if R is a reason to support a policy.
+reason(R) :- because(P,R), policy(P).
+reason('body autonomy').
 
 q(Ans) :-
     write("Ask me: "), flush_output(current_output),
