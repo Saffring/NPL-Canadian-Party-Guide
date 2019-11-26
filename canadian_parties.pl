@@ -29,6 +29,7 @@ noun_phrase(L0,L4,Entity,C0,C4) :-
 % Determiners (articles) are ignored in this oversimplified example.
 % They do not provide any extra constraints.
 det([the | L],L,_,C,C).
+det([this | L],L,_,C,C).
 det([a | L],L,_,C,C).
 det(L,L,_,C,C).
 
@@ -201,12 +202,17 @@ supports('abortion',bq).
 supports('quebec nationalism',bq).
 supports('repealing the law of gravity',rhinoceros).
 
-because('abortion', 'body autonomy').
-
+% because(P,R) is true if policy P1 can be justified by reason R.
+because('abortion', 'Body autonomy').
+because('bike lanes', 'Improved health for Canadians').
+because('bike lanes', 'Reduced carbon footprint').
+because('pharmacare', 'Improved health for Canadians').
 
 % reason(R) is true if R is a reason to support a policy.
-reason(R) :- because(P,R), policy(P).
-reason('body autonomy').
+reason('Body autonomy').
+reason('Improved health for Canadians').
+reason('Reduced carbon footprint').
+
 
 q(Ans) :-
     write("Ask me: "), flush_output(current_output),
@@ -221,4 +227,5 @@ ask(['Who',is,the,leader,of,a,left,party],A).
 ask(['Who',is,the,leader,of,liberals],A).
 ask(['What',is,a,party,that,supports,'pharmacare'],A).
 ask(['What',is,a,policy,that,is,supported,by,a,right,party],A).
+ask(['What',is,a,reason,to,support,abortion],A).
 */
