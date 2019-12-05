@@ -78,8 +78,9 @@ reln([the,leader,of| L],L,O1,O2,[leaderOf(O2,O1)|C],C).
 reln([supports | L],L,O1,O2,[supports(O2,O1)|C],C).
 reln([is,supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
 reln([supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
-
 reln([to,support| L],L,O1,O2,[because(O2,O1)|C],C).
+
+reln([promotes| L],L,O1,O2,[because(O1,O2)|C],C).
 
 
 
@@ -227,5 +228,5 @@ ask(['Who',is,the,leader,of,a,left,party],A).
 ask(['Who',is,the,leader,of,liberals],A).
 ask(['What',is,a,party,that,supports,'pharmacare'],A).
 ask(['What',is,a,policy,that,is,supported,by,a,right,party],A).
-ask(['What',is,a,reason,to,support,abortion],A).
+ask(['What',is,a,reason,to,support,'bike lanes'],A).
 */
