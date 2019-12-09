@@ -72,29 +72,17 @@ proper_noun([the, X | L],L,X,C,C) :- party(X).
 proper_noun([X | L],L,X,C,C) :- policy(X).
 proper_noun([X | L],L,X,C,C) :- reason(X).
 
-
-
 reln([the,leader,of| L],L,O1,O2,[leaderOf(O2,O1)|C],C).
 reln([supports | L],L,O1,O2,[supports(O2,O1)|C],C).
+reln([support | L],L,O1,O2,[supports(O2,O1)|C],C).
 reln([is,supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
 reln([supported,by|L],L,O1,O2,[supports(O1,O2)|C],C).
 reln([to,support| L],L,O1,O2,[because(O2,O1)|C],C).
 
-reln([promotes| L],L,O1,O2,[because(O1,O2)|C],C).
-
-
-
-
-
-
-
 % question(Question,QR,Entity) is true if Query provides an answer about Entity to Question
-question(['Does' | L0],L2,Entity,C0,C2) :-
-    noun_phrase(L0,L1,Entity,C0,C1),
-    mp(L1,L2,Entity,C1,C2).
-question(['Is' | L0],L2,Entity,C0,C2) :-
-    noun_phrase(L0,L1,Entity,C0,C1),
-    mp(L1,L2,Entity,C1,C2).
+
+question(['Does' | L0],L1,Entity,C0,C1) :-
+   noun_phrase(L0,L1,Entity,C0,C1).
 question(['What',is | L0], L1, Entity,C0,C1) :-
     mp(L0,L1,Entity,C0,C1).
 question(['What',is | L0],L1,Entity,C0,C1) :-
